@@ -1,7 +1,11 @@
 import express, { Application, Request, Response } from 'express'
 import mongoose from 'mongoose'
 
+import { userRouter } from './routes/user'
+
 const app: Application = express()
+
+app.use(express.json())
 
 const PORT: number = 4000
 
@@ -15,9 +19,7 @@ mongoose.connect(CONNECTION_URL).then(() => {
 })
 
 
-app.get('/api/v1', (req: Request, res: Response) => {
-    res.send("Hello Wo2ede221srld !!!")
-})
+app.use("/api/v1/user",userRouter);
 
 
 app.listen(PORT, () => {

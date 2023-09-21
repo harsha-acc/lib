@@ -1,0 +1,9 @@
+Tables:
+1. User(UId, Uname, Pswd, Email, [CId])
+2. Books(Bid,Bname,Author,Category, Count,LibID)
+3. Library(LEmail, LAPswd, Lname, LibID)
+4. Catalog(CId, BId, Uid, SDate, RDate, ARDate)
+
+Features:
+1. Login/Signup - User = View, Borrow
+2. Login - LAdmin = CRUD Books
