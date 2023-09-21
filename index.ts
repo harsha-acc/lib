@@ -10,8 +10,8 @@ const CONNECTION_URL: string = "mongodb+srv://lib:lib@cluster0.mlryi7x.mongodb.n
 
 mongoose.connect(CONNECTION_URL).then(() => {
     console.log('DB Connected')
-}).catch((error) => {
-    console.log(error)
+}).catch((err) => {
+    console.log(err)
 })
 
 
