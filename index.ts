@@ -1,8 +1,11 @@
 import express, { Application, Request, Response } from 'express'
 import mongoose from 'mongoose'
+
 import { userRouter } from './routes/user'
 
 const app: Application = express()
+
+app.use(express.json())
 
 const PORT: number = 4000
 
