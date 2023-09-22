@@ -1,7 +1,8 @@
-import express, { Application, Request, Response } from 'express'
+import express, { Application } from 'express'
 import mongoose from 'mongoose'
 
 import { userRouter } from './routes/user'
+import { libraryRouter } from './routes/library'
 
 const app: Application = express()
 
@@ -19,7 +20,8 @@ mongoose.connect(CONNECTION_URL).then(() => {
 })
 
 
-app.use("/api/v1/user",userRouter);
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/library", libraryRouter);
 
 
 app.listen(PORT, () => {
