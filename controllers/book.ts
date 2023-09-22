@@ -14,6 +14,7 @@ const createBook = async (req: Request, res: Response) => {
 }
 
 const readBook =  async(req: Request,res: Response)=>{
+    console.log('hi')
     var books = await Book.find({})
     res.json(books)
 }

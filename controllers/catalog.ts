@@ -18,5 +18,20 @@ const catalogCreate = (req: Request, res: Response) => {
     }).catch((err) => res.json({ message: err }))
 }
 
+const catalogDelete = async (req: Request, res: Response) => {
+    const catalogID = req.params.cID;
 
-export { catalogCreate }
+    try {
+        const deletedCatalog = await Catalog.deleteOne({cID:catalogID});
+        if (deletedCatalog.deletedCount === 1){
+            res.json({message: "Catalog deleted Successfully",deletedCatalog});
+        } else {
+            res.status(404).json({message:"Catalog not found"});
+        }
+    }catch(error) {
+        res.status(500).json({message: "Internal server error",error})
+    }
+}
+
+
+export { catalogCreate, catalogDelete }
