@@ -1,25 +1,25 @@
 import mongoose from "mongoose";
 
 const librarySchema = new mongoose.Schema({
-    libEmail:{
-        type:String,
-        unique:true,
-        require:true
+    lEmail:{
+        type: String,
+        unique: true,
+        required: true
     },
-    libPswd:{
-        type:String,
-        require:true
+    lPassword:{
+        type: String,
+        required: true
     },
     lName:{
-        type:String,
-        require:true
+        type: String,
+        required: true
     },
-    libID:{
-        type:String,
-        unique:true,
-        require:true
+    lID:{
+        type: String,
+        unique: true,
+        required: true
     }
 });
 
-const library = mongoose.model("Library",librarySchema);
-export {library}
+const Library = mongoose.model("Library", librarySchema);
+export { Library }

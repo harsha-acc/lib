@@ -2,33 +2,32 @@ import mongoose from "mongoose";
 
 const catalogSchema = new mongoose.Schema({
     cID:{
-        type:String,
-        unique:true,
-        require:true
+        type: String,
+        unique: true,
+        required: true
     },
     bID:{
-        type:String,
-        unique:true,
-        require:true
+        type: String,
+        unique: true,
+        required: true
     },
     uID:{
-        type:String,
-        unique:true,
-        require:true
+        type: String,
+        unique: true,
+        required: true
     },
     sDate:{
-        type:Date,
-        require:true
+        type: Date,
+        required: true
     },
     rDate:{
-        type:Date,
-        require:true
+        type: Date,
+        required: true
     },
     arDate:{
-        type:Date,
-        require:true
+        type: Date
     }
 });
 
-const catalog = mongoose.model("Catalog",catalogSchema);
-export {catalog}
+const Catalog = mongoose.model("Catalog", catalogSchema);
+export { Catalog }

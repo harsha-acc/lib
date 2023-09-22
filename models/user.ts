@@ -21,6 +21,9 @@ const userSchema = new mongoose.Schema({
     },
     uCatalog: {
         type: [String]
+    },
+    uToken:{
+        type:String
     }
 })
 
