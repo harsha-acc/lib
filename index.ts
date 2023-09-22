@@ -1,6 +1,5 @@
 import express, { Application } from 'express'
 import mongoose from 'mongoose'
-import { auth } from './service/auth'
 
 import { userRouter } from './routes/user'
 import { libraryRouter } from './routes/library'
