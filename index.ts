@@ -1,10 +1,10 @@
 import express, { Application } from 'express'
 import mongoose from 'mongoose'
-import { auth } from './service/auth'
 
 import { userRouter } from './routes/user'
 import { libraryRouter } from './routes/library'
 import { bookRouter } from './routes/book'
+import { catalogRouter } from './routes/catalog'
 
 const app: Application = express()
 
@@ -24,6 +24,7 @@ mongoose.connect(CONNECTION_URL).then(() => {
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/library", libraryRouter);
 app.use("/api/v1/book",bookRouter);
+app.use("/api/v1/catalog", catalogRouter)
 
 app.listen(PORT, () => {
     console.log(`Server started at ${PORT}`)
