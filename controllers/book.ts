@@ -34,18 +34,4 @@ const deleteBook = async (req: Request, res: Response) => {
     }
 }
 
-const updateBook = async(req:Request, res:Response)=>{
-    const bookID = req.body.bid;
-    const bookCount = req.body.bCount;
-    try{
-        const bookObj = await Book.findOneAndUpdate({bID:bookID},{$set:{bCount:bookCount}});
-        console.log(bookObj);
-        await bookObj!.save();
-        res.json({message:"Updation successful"});
-    }
-    catch(err){
-        res.status(400).json({message:"Error",err});
-    }
-}
-
-export {createBook, readBook, deleteBook,updateBook}
+export {createBook, readBook, deleteBook}
