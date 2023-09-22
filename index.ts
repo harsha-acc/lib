@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import { auth } from './service/auth'
 
 import { userRouter } from './routes/user'
+import { libraryRouter } from './routes/library'
 
 const app: Application = express()
 
@@ -19,8 +20,8 @@ mongoose.connect(CONNECTION_URL).then(() => {
 })
 
 
-// app.use()
-app.use("/api/v1/user",userRouter);
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/library", libraryRouter);
 
 app.listen(PORT, () => {
     console.log(`Server started at ${PORT}`)

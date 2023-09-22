@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv"
 import { auth } from "../service/auth";
+import {v4 as uuidv4} from "uuid";
 
 dotenv.config();
 const SALT_ROUNDS: number = 10;
@@ -37,7 +38,8 @@ const userLogin = async(req:Request,res:Response)=>{
 
 const userSignUp = async (req: Request, res: Response) => {
     req.body.uPassword = await bcrypt.hash(req.body.uPassword, SALT_ROUNDS)
-    console.log(req.body);
+    req.body.uID = 'USER' + uuidv4()
+    console.log(req.body)
     const newUser = new User(req.body)
     newUser.save().then(() => {
         res.json({ message: "Created successfully" })

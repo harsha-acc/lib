@@ -2,32 +2,31 @@ import mongoose from "mongoose";
 
 const bookSchema = new mongoose.Schema({
     bID:{
-        type:String,
-        unique:true,
-        require:true
+        type: String,
+        unique: true,
+        required: true
     },
     bName:{
-        type:String,
-        require:true
+        type: String,
+        required: true
     },
     author:{
-        type:String,
-        require:true
+        type: String,
+        required: true
     },
     category:{
-        type:String,
-        require:true
+        type: String,
+        required: true
     },
     bCount:{
-        type:Number,
-        default:0,
+        type: Number,
+        default: 0,
     },
     lID:{
-        type:String,
-        unique:true,
-        require:true
+        type: String,
+        required: true
     }
 })
 
-const Book = mongoose.model("Book",bookSchema);
-export {Book}
+const Book = mongoose.model("Book", bookSchema);
+export { Book }
