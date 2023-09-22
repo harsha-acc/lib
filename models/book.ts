@@ -24,7 +24,7 @@ const bookSchema = new mongoose.Schema({
     },
     lID:{
         type: String,
-        required: true
+        required: true,
     }
 })
 
