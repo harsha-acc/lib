@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const auth_1 = require("./service/auth");
 const user_1 = require("./routes/user");
+const library_1 = require("./routes/library");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 const PORT = 4000;
@@ -16,9 +16,8 @@ mongoose_1.default.connect(CONNECTION_URL).then(() => {
 }).catch((err) => {
     console.log(err);
 });
-// app.use()
 app.use("/api/v1/user", user_1.userRouter);
-console.log((0, auth_1.auth)("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTAwMDAwMDAwMSIsImVtYWlsIjoiaGFyc2hhNzdAZ21haWwuY29tIiwiaWF0IjoxNjk1MzYxNDczLCJleHAiOjE2OTUzNjE1MzN9.zEYHTelGdmbmjmFu4olHADY7UqAsZWJ0GC2QSVORWgc"));
+app.use("/api/v1/library", library_1.libraryRouter);
 app.listen(PORT, () => {
     console.log(`Server started at ${PORT}`);
 });

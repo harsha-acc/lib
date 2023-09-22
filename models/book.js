@@ -9,19 +9,19 @@ const bookSchema = new mongoose_1.default.Schema({
     bID: {
         type: String,
         unique: true,
-        require: true
+        required: true
     },
     bName: {
         type: String,
-        require: true
+        required: true
     },
     author: {
         type: String,
-        require: true
+        required: true
     },
     category: {
         type: String,
-        require: true
+        required: true
     },
     bCount: {
         type: Number,
@@ -29,8 +29,7 @@ const bookSchema = new mongoose_1.default.Schema({
     },
     lID: {
         type: String,
-        unique: true,
-        require: true
+        required: true
     }
 });
 const Book = mongoose_1.default.model("Book", bookSchema);

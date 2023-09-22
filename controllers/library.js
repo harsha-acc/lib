@@ -12,31 +12,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userSignUp = exports.userLogin = void 0;
-const user_1 = require("../models/user");
+exports.librarySignUp = exports.libraryLogin = void 0;
+const library_1 = require("../models/library");
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const uuid_1 = require("uuid");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const auth_1 = require("../service/auth");
-const uuid_1 = require("uuid");
 dotenv_1.default.config();
 const SALT_ROUNDS = 10;
-const userLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const libraryLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
         if (!(email && password)) {
             res.status(400).send("All inputs are requred");
         }
-        const user = yield user_1.User.findOne({ uEmail: email });
-        if (user && (yield (bcrypt_1.default.compare(password, user.uPassword)))) {
+        const library = yield library_1.Library.findOne({ lEmail: email });
+        if (library && (yield (bcrypt_1.default.compare(password, library.lPassword)))) {
             console.log("Login successful");
-            const token = jsonwebtoken_1.default.sign({ user_id: user.uID, email }, process.env.TOKEN_KEY, {
+            const token = jsonwebtoken_1.default.sign({ user_id: library.lID, email }, process.env.TOKEN_KEY, {
                 expiresIn: "1h",
             });
-            user.uToken = token;
-            yield user.save();
-            (0, auth_1.auth)(user.uToken);
-            res.status(200).json(user);
+            library.lToken = token;
+            yield library.save();
+            (0, auth_1.auth)(library.lToken);
+            res.status(200).json(library);
         }
         res.status(400).send("Invalid credentials");
     }
@@ -44,16 +44,16 @@ const userLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(err);
     }
 });
-exports.userLogin = userLogin;
-const userSignUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    req.body.uPassword = yield bcrypt_1.default.hash(req.body.uPassword, SALT_ROUNDS);
-    req.body.uID = 'USER' + (0, uuid_1.v4)();
+exports.libraryLogin = libraryLogin;
+const librarySignUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    req.body.lPassword = yield bcrypt_1.default.hash(req.body.lPassword, SALT_ROUNDS);
+    req.body.lID = 'LIB' + (0, uuid_1.v4)();
     console.log(req.body);
-    const newUser = new user_1.User(req.body);
-    newUser.save().then(() => {
+    const newLibrary = new library_1.Library(req.body);
+    newLibrary.save().then(() => {
         res.json({ message: "Created successfully" });
     }).catch((err) => {
         res.json({ message: err });
     });
 });
-exports.userSignUp = userSignUp;
+exports.librarySignUp = librarySignUp;

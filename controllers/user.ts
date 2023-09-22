@@ -22,7 +22,7 @@ const userLogin = async(req:Request,res:Response)=>{
                 { user_id: user.uID, email },
                 ((process.env.TOKEN_KEY as unknown) as any),
                 {
-                  expiresIn: "1m",
+                  expiresIn: "1h",
                 });
                 user.uToken = token;
                 await user.save();

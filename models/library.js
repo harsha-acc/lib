@@ -3,27 +3,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.library = void 0;
+exports.Library = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const librarySchema = new mongoose_1.default.Schema({
-    libEmail: {
+    lEmail: {
         type: String,
         unique: true,
-        require: true
+        required: true
     },
-    libPswd: {
+    lPassword: {
         type: String,
-        require: true
+        required: true
     },
     lName: {
         type: String,
-        require: true
+        required: true
     },
-    libID: {
+    lID: {
         type: String,
         unique: true,
-        require: true
+        required: true
+    },
+    lToken: {
+        type: String,
     }
 });
-const library = mongoose_1.default.model("Library", librarySchema);
-exports.library = library;
+const Library = mongoose_1.default.model("Library", librarySchema);
+exports.Library = Library;
