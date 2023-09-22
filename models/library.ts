@@ -18,6 +18,10 @@ const librarySchema = new mongoose.Schema({
         type:String,
         unique:true,
         require:true
+    },
+    lToken:{
+        type:String,
+        require:true
     }
 });
 
