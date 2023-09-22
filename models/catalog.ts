@@ -8,24 +8,22 @@ const catalogSchema = new mongoose.Schema({
     },
     bID:{
         type: String,
-        unique: true,
         required: true
     },
     uID:{
         type: String,
-        unique: true,
         required: true
     },
     sDate:{
-        type: Date,
+        type: String,
         required: true
     },
     rDate:{
-        type: Date,
+        type: String,
         required: true
     },
     arDate:{
-        type: Date
+        type: String
     }
 });
 

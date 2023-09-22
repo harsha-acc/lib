@@ -40,7 +40,6 @@ const libraryLogin = async (req: Request, res: Response)=>{
 const librarySignUp = async (req: Request, res: Response) => {
     req.body.lPassword = await bcrypt.hash(req.body.lPassword, SALT_ROUNDS)
     req.body.lID = 'LIB' + uuidv4()
-    console.log(req.body)
     const newLibrary = new Library(req.body)
     newLibrary.save().then(() => {
         res.json({ message: "Created successfully" })
