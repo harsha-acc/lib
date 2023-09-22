@@ -39,7 +39,6 @@ const userLogin = async(req:Request,res:Response)=>{
 const userSignUp = async (req: Request, res: Response) => {
     req.body.uPassword = await bcrypt.hash(req.body.uPassword, SALT_ROUNDS)
     req.body.uID = 'USER' + uuidv4()
-    console.log(req.body)
     const newUser = new User(req.body)
     newUser.save().then(() => {
         res.json({ message: "Created successfully" })

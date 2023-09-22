@@ -20,8 +20,7 @@ const librarySchema = new mongoose.Schema({
         required: true
     },
     lToken:{
-        type:String,
-        
+        type:String,  
     }
 });
 
