@@ -9,27 +9,23 @@ import {v4 as uuidv4} from "uuid";
 dotenv.config();
 const SALT_ROUNDS: number = 10;
 
+const getJwtToken = (user: any, email: string) => {
+
+    return jwt.sign( { user_id: user.uID, email }, ((process.env.TOKEN_KEY as unknown) as any), { expiresIn: "1h" })
+}
+
 const userLogin = async(req:Request,res:Response)=>{
     try{
-        const {email,password} = req.body;
-        if(!(email && password)){
-            res.status(400).send("All inputs are requred");
-        }
-        const user = await User.findOne({uEmail: email});
+        const {email,password} = req.body
+        const user = await User.findOne({ uEmail: email });
         if(user && await (bcrypt.compare(password,user.uPassword))){
             console.log("Login successful");
-            const token = jwt.sign(
-                { user_id: user.uID, email },
-                ((process.env.TOKEN_KEY as unknown) as any),
-                {
-                  expiresIn: "1h",
-                });
-                user.uToken = token;
-                await user.save();
-                auth(user.uToken);
-                res.status(200).json(user);
+            const token = getJwtToken(user, email)
+            user.uToken = token
+            await user.save();
+            res.json(user);
         }
-        res.status(400).send("Invalid credentials");
+        else res.send("Invalid credentials");
     }
     catch (err){
         res.send(err);

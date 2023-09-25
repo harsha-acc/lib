@@ -13,9 +13,6 @@ const SALT_ROUNDS: number = 10;
 const libraryLogin = async (req: Request, res: Response)=>{
     try{
         const {email,password} = req.body;
-        if(!(email && password)){
-            res.status(400).send("All inputs are requred");
-        }
         const library = await Library.findOne({lEmail: email});
         if(library && await (bcrypt.compare(password,library.lPassword))){
             console.log("Login successful");
@@ -27,10 +24,9 @@ const libraryLogin = async (req: Request, res: Response)=>{
                 });
                 library.lToken = token;
                 await library.save();
-                auth(library.lToken);
                 res.status(200).json(library);
         }
-        res.status(400).send("Invalid credentials");
+        else res.status(400).send("Invalid credentials");
     }
     catch (err){
         res.send(err);
