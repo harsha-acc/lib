@@ -44,5 +44,12 @@ const librarySignUp = async (req: Request, res: Response) => {
     })
 }
 
+const libraryAll = (req: Request, res: Response) => {
+    Library.find({}).then((libraries) => {
+        res.json(libraries)
+    }).catch((err) => {
+        res.json(err)
+    })
+}
 
-export { libraryLogin, librarySignUp }
+export { libraryLogin, librarySignUp, libraryAll }
