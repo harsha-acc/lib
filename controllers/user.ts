@@ -7,7 +7,7 @@ import { auth } from "../service/auth";
 import {v4 as uuidv4} from "uuid";
 
 dotenv.config();
-const SALT_ROUNDS: number = 10;
+const SALT_ROUNDS: any = process.env.SALT_ROUNDS;
 
 const userLogin = async(req:Request,res:Response)=>{
     try{

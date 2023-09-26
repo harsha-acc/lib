@@ -4,6 +4,6 @@ import { catalogCreate, catalogDelete, catalogRead } from "../controllers/catalo
 const catalogRouter: Router = Router();
 catalogRouter.post("/create", catalogCreate);
 catalogRouter.delete("/:cID", catalogDelete);
-catalogRouter.get("/read",catalogRead);
+catalogRouter.get("/read",catalogRead);;
 
 export { catalogRouter }

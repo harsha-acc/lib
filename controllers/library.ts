@@ -8,7 +8,7 @@ import { auth } from "../service/auth";
 
 
 dotenv.config();
-const SALT_ROUNDS: number = 10;
+const SALT_ROUNDS: any = process.env.SALT_ROUNDS
 
 const libraryLogin = async (req: Request, res: Response)=>{
     try{
@@ -27,7 +27,6 @@ const libraryLogin = async (req: Request, res: Response)=>{
                 });
                 library.lToken = token;
                 await library.save();
-                auth(library.lToken);
                 res.status(200).json(library);
         }
         res.status(400).send("Invalid credentials");
