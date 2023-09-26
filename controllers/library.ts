@@ -52,9 +52,10 @@ const libraryAll = (req: Request, res: Response) => {
     })
 }
 
-const viewBooks = (req:Request,res:Response) => {
-    const lID = req.body.id;
-    const books = Book.find({lID:lID});
+const viewBooks = async(req:Request,res:Response) => {
+    const lID = req.params.id;
+    console.log(typeof lID)
+    const books = await Book.find({lID:lID});
     res.json(books);
 }
 
