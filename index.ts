@@ -1,5 +1,6 @@
 import express, { Application } from 'express'
 import mongoose from 'mongoose'
+import cors from 'cors'
 
 import { userRouter } from './routes/user'
 import { libraryRouter } from './routes/library'
@@ -9,6 +10,7 @@ import { catalogRouter } from './routes/catalog'
 const app: Application = express()
 
 app.use(express.json())
+app.use(cors())
 
 const PORT: any = process.env.PORT
 

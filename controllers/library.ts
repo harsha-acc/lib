@@ -13,9 +13,6 @@ const SALT_ROUNDS: any = process.env.SALT_ROUNDS
 const libraryLogin = async (req: Request, res: Response)=>{
     try{
         const {email,password} = req.body;
-        if(!(email && password)){
-            res.status(400).send("All inputs are requred");
-        }
         const library = await Library.findOne({lEmail: email});
         if(library && await (bcrypt.compare(password,library.lPassword))){
             console.log("Login successful");
@@ -29,7 +26,7 @@ const libraryLogin = async (req: Request, res: Response)=>{
                 await library.save();
                 res.status(200).json(library);
         }
-        res.status(400).send("Invalid credentials");
+        else res.status(400).send("Invalid credentials");
     }
     catch (err){
         res.send(err);
