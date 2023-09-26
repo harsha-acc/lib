@@ -5,5 +5,6 @@ const libraryRouter: Router = Router();
 libraryRouter.post("/login", libraryLogin);
 libraryRouter.post("/signup", librarySignUp);
 libraryRouter.get('/all', libraryAll)
+libraryRouter.get('/viewBooks', libraryAll)
 
 export { libraryRouter }

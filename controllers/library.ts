@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid';
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv"
-import { auth } from "../service/auth";
+import { Book } from "../models/book";
 
 
 dotenv.config();
@@ -52,4 +52,10 @@ const libraryAll = (req: Request, res: Response) => {
     })
 }
 
-export { libraryLogin, librarySignUp, libraryAll }
+const viewBooks = (req:Request,res:Response) => {
+    const lID = req.body.id;
+    const books = Book.find({lID:lID});
+    res.json(books);
+}
+
+export { libraryLogin, librarySignUp, libraryAll, viewBooks}
