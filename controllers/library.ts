@@ -4,18 +4,15 @@ import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid';
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv"
-import { auth } from "../service/auth";
+import { Book } from "../models/book";
 
 
 dotenv.config();
-const SALT_ROUNDS: number = 10;
+const SALT_ROUNDS: any = process.env.SALT_ROUNDS
 
 const libraryLogin = async (req: Request, res: Response)=>{
     try{
         const {email,password} = req.body;
-        if(!(email && password)){
-            res.status(400).send("All inputs are requred");
-        }
         const library = await Library.findOne({lEmail: email});
         if(library && await (bcrypt.compare(password,library.lPassword))){
             console.log("Login successful");
@@ -27,10 +24,9 @@ const libraryLogin = async (req: Request, res: Response)=>{
                 });
                 library.lToken = token;
                 await library.save();
-                auth(library.lToken);
                 res.status(200).json(library);
         }
-        res.status(400).send("Invalid credentials");
+        else res.status(400).send("Invalid credentials");
     }
     catch (err){
         res.send(err);
@@ -48,5 +44,19 @@ const librarySignUp = async (req: Request, res: Response) => {
     })
 }
 
+const libraryAll = (req: Request, res: Response) => {
+    Library.find({}).then((libraries) => {
+        res.json(libraries)
+    }).catch((err) => {
+        res.json(err)
+    })
+}
 
-export { libraryLogin, librarySignUp }
+const viewBooks = async(req:Request,res:Response) => {
+    const lID = req.params.id;
+    console.log(typeof lID)
+    const books = await Book.find({lID:lID});
+    res.json(books);
+}
+
+export { libraryLogin, librarySignUp, libraryAll, viewBooks}

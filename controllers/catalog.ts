@@ -2,6 +2,7 @@ import { Request, Response } from "express"
 import { Catalog } from "../models/catalog"
 import { User } from "../models/user"
 import { v4 as uuidv4 } from 'uuid'
+import { auth } from "../service/auth"
 
 const catalogCreate = (req: Request, res: Response) => {
     const newCatalog = new Catalog(req.body)
@@ -10,7 +11,8 @@ const catalogCreate = (req: Request, res: Response) => {
     newCatalog.save().then(async() => {
 
         const user = await User.findOne({ uID : req.body.uID })
-        user?.uCatalog.push(newCatalog.cID)
+        user?.uCatalog.push(newCatalog.cID);
+        auth(user?.uToken as string);
         user?.save().then(() => {
             res.json({ message: "Catalog Created Successfully"})
         }).catch((err) => res.json({ message: err }))
@@ -33,5 +35,38 @@ const catalogDelete = async (req: Request, res: Response) => {
     }
 }
 
+const catalogRead = async(req:Request,res:Response) => {
+    try
+    {   const uID = req.body.uID;
+        const userObj:any = User.findOne({uID:uID});
+        auth(userObj.uToken as string);
+        console.log(userObj);
+        const catArr = []
+        const user:any = userObj;
+        const uCatArr = user.uCatalog;
+        for(let i=0;i<uCatArr.length;i++)
+        {
+            catArr.push(Catalog.findOne({cID:uCatArr[i]}));
+        }
+        res.json(catArr);
+    }
+    catch(err){
+        res.status(400).json({message:"Internal error",err});
+    }
+}
 
-export { catalogCreate, catalogDelete }
+const catalogUpdate =async (req:Request,res:Response) => {
+    try
+    {   const cID = req.body.cID;
+        const rDate = req.body.rDate;
+        const catalog:any = Catalog.findOneAndUpdate({cID:cID},{$set:{arDate:rDate}});
+        await catalog!.save();
+        res.json({message:"Catalog Updation Succesful"});
+    }
+    catch(err){
+        res.status(400).json({message:"Internal error",err});
+    }
+}
+
+
+export { catalogCreate, catalogDelete, catalogRead,catalogUpdate }
